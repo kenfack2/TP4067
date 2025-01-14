@@ -15,10 +15,11 @@ public class VehiculeElectrique extends Vehicule {
     public void setCapaciteBatterie(int capaciteBatterie) {
         this.capaciteBatterie = capaciteBatterie;
     }
-    public VehiculeElectrique(String marque, String modele, String description, float prix, int Nombre,int capaciteBatterie) {
-        super(marque,modele,description,prix,Nombre);
-        this.capaciteBatterie = capaciteBatterie;
-    }
+
+        public VehiculeElectrique(String marque, String modele, String description, float prix, int Nombre, int capaciteBatterie) {  
+            super(marque, modele, description, prix, Nombre);  
+            this.capaciteBatterie = capaciteBatterie;  
+        }  
 
     public VehiculeElectrique() {}
 

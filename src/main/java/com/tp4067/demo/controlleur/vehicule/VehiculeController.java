@@ -1,6 +1,7 @@
 package com.tp4067.demo.controlleur.vehicule;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.tp4067.demo.model.vehicule.ElectriqueVehiculeFactory;
@@ -94,9 +95,14 @@ public Vehicule createElectriqueVehicule(@RequestBody Map<String, Object> payloa
     }
 
     @PutMapping("modifier/{id}")
-    public Vehicule updateVehicule(@PathVariable int id, @RequestBody Vehicule updatedVehicule) {
-        return vehiculeService.updateVehicule(id, updatedVehicule);
-    }
+    public ResponseEntity<Vehicule> updateVehicule(@PathVariable int id, @RequestBody Vehicule vehiculeDetails) {  
+        Vehicule updatedVehicule = vehiculeService.updateVehicule(id, vehiculeDetails);  
+        if (updatedVehicule != null) {  
+            return ResponseEntity.ok(updatedVehicule);  
+        }  
+        return ResponseEntity.notFound().build(); // En cas de véhicule non trouvé  
+    }  
+
 
     @DeleteMapping("supprimer/{id}")
     public String deleteVehicule(@PathVariable int id) {

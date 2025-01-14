@@ -2,6 +2,14 @@ package com.tp4067.demo.model.vehicule;
 
 import jakarta.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;  
+import com.fasterxml.jackson.annotation.JsonTypeInfo;  
+
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")  
+@JsonSubTypes({  
+    @JsonSubTypes.Type(value = VehiculeEssence.class, name = "ESSENCE"),  
+    @JsonSubTypes.Type(value = VehiculeElectrique.class, name = "ELECTRIQUE")  
+})  
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type_vehicule", discriminatorType = DiscriminatorType.STRING)
@@ -14,6 +22,36 @@ public abstract class Vehicule {
     private String description;
     private float prix;
     private int Nombre;
+
+    public Vehicule id(int id) {
+        setId(id);
+        return this;
+    }
+
+    public Vehicule marque(String marque) {
+        setMarque(marque);
+        return this;
+    }
+
+    public Vehicule modele(String modele) {
+        setModele(modele);
+        return this;
+    }
+
+    public Vehicule description(String description) {
+        setDescription(description);
+        return this;
+    }
+
+    public Vehicule prix(float prix) {
+        setPrix(prix);
+        return this;
+    }
+
+    public Vehicule Nombre(int Nombre) {
+        setNombre(Nombre);
+        return this;
+    }
 
     public int getId() {
         return this.id;

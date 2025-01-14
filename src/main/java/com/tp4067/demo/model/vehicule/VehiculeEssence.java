@@ -20,9 +20,9 @@ public class VehiculeEssence extends Vehicule {
     public VehiculeEssence() {
     }
 
-    public VehiculeEssence(String marque, String modele, String description, float prix, int Nombre,int capaciteReservoir) {
-        super(marque,modele,description,prix,Nombre);
-        this.capaciteReservoir = capaciteReservoir;
-    }
+    public VehiculeEssence(String marque, String modele, String description, float prix, int Nombre, int capaciteReservoir) {  
+        super(marque, modele, description, prix, Nombre);  
+        this.capaciteReservoir = capaciteReservoir;  
+    }  
     
 }

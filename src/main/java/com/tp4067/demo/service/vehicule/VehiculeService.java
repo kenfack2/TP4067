@@ -1,11 +1,13 @@
 package com.tp4067.demo.service.vehicule;
 
 import java.util.List;
-
+import java.util.Optional;  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tp4067.demo.model.vehicule.Vehicule;
+import com.tp4067.demo.model.vehicule.VehiculeElectrique;
+import com.tp4067.demo.model.vehicule.VehiculeEssence;
 import com.tp4067.demo.model.vehicule.VehiculeFactory;
 import com.tp4067.demo.repository.vehicule.VehiculeRepository;
 
@@ -24,17 +26,30 @@ public class VehiculeService {
         return vehiculeRepository.findAll();
     }
 
-    public Vehicule updateVehicule(int id, Vehicule updatedVehicule) {
-        return vehiculeRepository.findById(id).map(existingVehicule -> {
-            existingVehicule.setMarque(updatedVehicule.getMarque());
-            existingVehicule.setModele(updatedVehicule.getModele());
-            existingVehicule.setDescription(updatedVehicule.getDescription());
-            existingVehicule.setPrix(updatedVehicule.getPrix());
-            existingVehicule.setNombre(updatedVehicule.getNombre());
-            return vehiculeRepository.save(existingVehicule);
-        }).orElseThrow(() -> new RuntimeException("Véhicule introuvable"));
-    }
 
+    public Vehicule updateVehicule(int id, Vehicule vehiculeDetails) {  
+        Optional<Vehicule> optionalVehicule = vehiculeRepository.findById(id);  
+        if (optionalVehicule.isPresent()) {  
+            Vehicule vehicule = optionalVehicule.get();  
+
+            // Mettre à jour les propriétés communes  
+            vehicule.setMarque(vehiculeDetails.getMarque());  
+            vehicule.setModele(vehiculeDetails.getModele());  
+            vehicule.setDescription(vehiculeDetails.getDescription());  
+            vehicule.setPrix(vehiculeDetails.getPrix());  
+            vehicule.setNombre(vehiculeDetails.getNombre());  
+
+            // Mise à jour des propriétés spécifiques basé sur le type de véhicule  
+            if (vehicule instanceof VehiculeEssence && vehiculeDetails instanceof VehiculeEssence) {  
+                ((VehiculeEssence) vehicule).setCapaciteReservoir(((VehiculeEssence) vehiculeDetails).getCapaciteReservoir());  
+            } else if (vehicule instanceof VehiculeElectrique && vehiculeDetails instanceof VehiculeElectrique) {  
+                ((VehiculeElectrique) vehicule).setCapaciteBatterie(((VehiculeElectrique) vehiculeDetails).getCapaciteBatterie());  
+            }  
+
+            return vehiculeRepository.save(vehicule);  
+        }  
+        return null; // Ou lancez une exception si le véhicule n'est pas trouvé  
+    }  
     public void deleteVehicule(int id) {
         vehiculeRepository.deleteById(id);
     }
