@@ -43,7 +43,7 @@ public class AuthController {
         authService.deconnecter(session);
         return ResponseEntity.ok("Déconnexion réussie");
     }
-}
+
 
     @PostMapping("/loginsociete")
     public ResponseEntity<Object> loginsociete(@RequestParam String adresse, @RequestParam String motDePasse, HttpSession session) {
