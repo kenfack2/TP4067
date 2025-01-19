@@ -22,8 +22,8 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestParam String adresse, @RequestParam String motDePasse, HttpSession session) {
         try {
-            PersonneOrdinaire client = authService.connecter(adresse, motDePasse, session);
-            return ResponseEntity.ok(client);  // Retourne le profil de l'utilisateur connecté
+            Object utilisateur = authService.connecter(adresse, motDePasse, session);
+            return ResponseEntity.ok(utilisateur);  // Retourne le profil de l'utilisateur connecté
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
@@ -31,11 +31,11 @@ public class AuthController {
 
     @GetMapping("/profil")
     public ResponseEntity<Object> getProfil(HttpSession session) {
-        PersonneOrdinaire client = authService.obtenirUtilisateurConnecte(session);
-        if (client == null) {
+        Object utilisateur = authService.obtenirUtilisateurConnecte(session);
+        if (utilisateur == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Utilisateur non connecté");
         }
-        return ResponseEntity.ok(client);
+        return ResponseEntity.ok(utilisateur);
     }
 
     @PostMapping("/logout")
@@ -43,6 +43,7 @@ public class AuthController {
         authService.deconnecter(session);
         return ResponseEntity.ok("Déconnexion réussie");
     }
+}
 
     @PostMapping("/loginsociete")
     public ResponseEntity<Object> loginsociete(@RequestParam String adresse, @RequestParam String motDePasse, HttpSession session) {

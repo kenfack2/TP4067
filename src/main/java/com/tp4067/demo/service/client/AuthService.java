@@ -22,7 +22,18 @@ public class AuthService {
     private SocieteRepository societeRepository;
 
 
-    public PersonneOrdinaire connecter(String adresse, String motDePasse, HttpSession session) {
+    public Object connecter(String adresse, String motDePasse, HttpSession session) {
+         // Vérifier si c'est une Societe
+            Societe societe = societeRepository.findByAdresseAndMotDePasse(adresse, motDePasse)
+                .orElseThrow(() -> new RuntimeException("Adresse ou mot de passe incorrect"));
+    
+                // Vérifier si l'adresse appartient à une PersonneOrdinaire ou une Filiale
+
+                if (societe != null) {
+                    // L'utilisateur est une Societe
+                    session.setAttribute("societe", societe);
+                    return societe;
+                }
         PersonneOrdinaire client = personneRepository.findByAdresseAndMotDePasse(adresse, motDePasse)
             .orElseThrow(() -> new RuntimeException("Adresse ou mot de passe incorrect"));
 
@@ -31,14 +42,19 @@ public class AuthService {
         return client;
     }
 
-    public PersonneOrdinaire obtenirUtilisateurConnecte(HttpSession session) {
-        return (PersonneOrdinaire) session.getAttribute("utilisateur");
+    public Object obtenirUtilisateurConnecte(HttpSession session) {
+        Object utilisateur = session.getAttribute("societe");
+        if (utilisateur == null) {
+            utilisateur = session.getAttribute("personneOrdinaire");
+        }
+        return utilisateur;
     }
 
     public void deconnecter(HttpSession session) {
-        session.removeAttribute("utilisateur");
+        session.removeAttribute("societe");
+        session.removeAttribute("personneOrdinaire");
     }
-
+    
     public Societe connectersociete(String adresse, String motDePasse, HttpSession session) {
         Societe client = societeRepository.findByAdresseAndMotDePasse(adresse, motDePasse)
             .orElseThrow(() -> new RuntimeException("Adresse ou mot de passe incorrect"));
