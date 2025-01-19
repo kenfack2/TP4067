@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ElectriqueVehiculeFactory implements VehiculeFactory {
     @Override
-    public Vehicule createVehicule(String marque, String modele, String description, float prix, int Nombre, int capaciteBatterie) {
-        return new VehiculeElectrique(marque, modele,description,prix,Nombre,capaciteBatterie); // Capacité batterie par défaut
+    public Vehicule createVehicule(String marque, String modele,  float prix, int Nombre,String imagepath, int capaciteBatterie) {
+        return new VehiculeElectrique(marque, modele,prix,Nombre,imagepath,capaciteBatterie); // Capacité batterie par défaut
     }
 }

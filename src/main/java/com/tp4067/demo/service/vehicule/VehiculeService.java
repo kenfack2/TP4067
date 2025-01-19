@@ -17,8 +17,8 @@ public class VehiculeService {
     @Autowired
     private VehiculeRepository vehiculeRepository;
 
-    public Vehicule createVehicule(VehiculeFactory factory,String marque, String modele, String description, float prix, int Nombre, int capacite) {
-        Vehicule vehicule = factory.createVehicule(marque, modele, description, prix, Nombre, capacite);
+    public Vehicule createVehicule(VehiculeFactory factory,String marque, String modele,  float prix, int Nombre,String imagepath, int capacite) {
+        Vehicule vehicule = factory.createVehicule(marque, modele,  prix, Nombre,imagepath, capacite);
         return vehiculeRepository.save(vehicule);
     }
 
@@ -35,7 +35,7 @@ public class VehiculeService {
             // Mettre à jour les propriétés communes  
             vehicule.setMarque(vehiculeDetails.getMarque());  
             vehicule.setModele(vehiculeDetails.getModele());  
-            vehicule.setDescription(vehiculeDetails.getDescription());  
+            vehicule.setImagepath(vehiculeDetails.getImagepath());  
             vehicule.setPrix(vehiculeDetails.getPrix());  
             vehicule.setNombre(vehiculeDetails.getNombre());  
 

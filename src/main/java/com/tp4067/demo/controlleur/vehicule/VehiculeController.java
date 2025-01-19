@@ -30,7 +30,7 @@ public class VehiculeController {
         try {
             String marque = (String) payload.get("marque");
             String modele = (String) payload.get("modele");
-            String description = (String) payload.get("description");
+            String imagepath = (String) payload.get("imagepath");
     
             if (payload.get("prix") == null) {
                 throw new IllegalArgumentException("Le champ 'prix' est obligatoire.");
@@ -48,7 +48,7 @@ public class VehiculeController {
             int capaciteReservoir = ((Number) payload.get("capaciteReservoir")).intValue();
     
             return vehiculeService.createVehicule(
-                essenceVehiculeFactory, marque, modele, description, prix, nombre, capaciteReservoir);
+                essenceVehiculeFactory, marque, modele,  prix, nombre, imagepath,capaciteReservoir);
         } catch (ClassCastException e) {
             throw new IllegalArgumentException("Les types des champs ne sont pas valides : " + e.getMessage());
         } catch (NullPointerException e) {
@@ -62,7 +62,7 @@ public Vehicule createElectriqueVehicule(@RequestBody Map<String, Object> payloa
     try {
         String marque = (String) payload.get("marque");
         String modele = (String) payload.get("modele");
-        String description = (String) payload.get("description");
+        String imagepath = (String) payload.get("imagepath");
 
         if (payload.get("prix") == null) {
             throw new IllegalArgumentException("Le champ 'prix' est obligatoire.");
@@ -80,7 +80,7 @@ public Vehicule createElectriqueVehicule(@RequestBody Map<String, Object> payloa
         int capaciteBatterie = ((Number) payload.get("capaciteBatterie")).intValue();
 
         return vehiculeService.createVehicule(
-            electriqueVehiculeFactory, marque, modele, description, prix, nombre, capaciteBatterie);
+            electriqueVehiculeFactory, marque, modele,  prix, nombre, imagepath,capaciteBatterie);
     } catch (ClassCastException e) {
         throw new IllegalArgumentException("Les types des champs ne sont pas valides : " + e.getMessage());
     } catch (NullPointerException e) {

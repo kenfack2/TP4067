@@ -19,38 +19,19 @@ public abstract class Vehicule {
     private int id;
     private String marque;
     private String modele;
-    private String description;
     private float prix;
     private int Nombre;
+    private String imagepath;
 
-    public Vehicule id(int id) {
-        setId(id);
-        return this;
+    public Vehicule(String marque, String modele, float prix, int Nombre, String imagepath) {
+        this.marque = marque;
+        this.modele = modele;
+        this.prix = prix;
+        this.Nombre = Nombre;
+        this.imagepath = imagepath;
     }
 
-    public Vehicule marque(String marque) {
-        setMarque(marque);
-        return this;
-    }
-
-    public Vehicule modele(String modele) {
-        setModele(modele);
-        return this;
-    }
-
-    public Vehicule description(String description) {
-        setDescription(description);
-        return this;
-    }
-
-    public Vehicule prix(float prix) {
-        setPrix(prix);
-        return this;
-    }
-
-    public Vehicule Nombre(int Nombre) {
-        setNombre(Nombre);
-        return this;
+    public Vehicule() {
     }
 
     public int getId() {
@@ -77,14 +58,6 @@ public abstract class Vehicule {
         this.modele = modele;
     }
 
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public float getPrix() {
         return this.prix;
     }
@@ -101,17 +74,12 @@ public abstract class Vehicule {
         this.Nombre = Nombre;
     }
 
-
-
-    public Vehicule(String marque, String modele, String description, float prix, int Nombre) {
-        this.marque = marque;
-        this.modele = modele;
-        this.description = description;
-        this.prix = prix;
-        this.Nombre = Nombre;
+    public String getImagepath() {
+        return this.imagepath;
     }
 
-    public Vehicule() {
+    public void setImagepath(String imagepath) {
+        this.imagepath = imagepath;
     }
-    
+
 }
